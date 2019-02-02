@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Webview } from "react-native";
+import { View, Text, StyleSheet, Image, WebView } from "react-native";
 
 import { api } from "./utils/api";
 
@@ -21,7 +21,7 @@ class Main extends Component {
       .then((res) => {
         this.setState({
           title: res.title,
-          picture: res.picture,
+          picture: res.url,
           explanation: res.explanation,
           date: res.data,
           media: res.media_type
@@ -34,11 +34,39 @@ class Main extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Main Component</Text>
+      <View style={styles.root}>
+        <Text style={styles.text}>{this.state.date}</Text>
+        <Text style={styles.text}>{this.state.title}</Text>
+        {this.state.media === "video" ? (
+          <WebView
+            javascriptEnabled={true}
+            source={{ url: this.state.picture }}
+            style={{ width: 370, height: 200 }}
+          />
+        ) : (
+          <Image
+            source={{ url: this.state.picture }}
+            style={{ width: 370, height: 200 }}
+          />
+        )}
+        <Text style={styles.text}>{this.state.explanation}</Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000"
+  },
+  text: {
+    color: "#fff",
+    fontSize: 15,
+    padding: 10
+  }
+});
 
 export default Main;
