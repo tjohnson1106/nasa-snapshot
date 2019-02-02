@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, WebView } from "react-native";
+import { View, Text, StyleSheet, Image, WebView, ScrollView } from "react-native";
 
 import { api } from "./utils/api";
 
