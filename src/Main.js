@@ -14,6 +14,24 @@ class Main extends Component {
       media: ""
     };
   }
+
+  componentDidMount() {
+    api
+      .nasaPics()
+      .then((res) => {
+        this.setState({
+          title: res.title,
+          picture: res.picture,
+          explanation: res.explanation,
+          date: res.data,
+          media: res.media_type
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <View>
